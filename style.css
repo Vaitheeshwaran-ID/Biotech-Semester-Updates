@@ -1,0 +1,102 @@
+:root{
+ -- bg:#f5f8ff;
+  --card:#ffffff;
+  --accent:#2a52f2;
+  --accent2:#00c3ff;
+  --text:#222;
+  --muted:#666666;
+  --highlight:yellow;
+  --highlight-glow:0 0 12px rgba(74,108,247,0.6);
+}
+
+body{
+  margin:0;
+  font-family:"Poppins", Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+  justify-content:center;
+  padding:32px;
+}
+
+.container{
+  width:100%;
+  max-width:900px;
+}
+
+h1{
+  font-size:1.8rem;
+  text-align:center;
+}
+
+.subtitle{
+  text-align:center;
+  color:var(--muted);
+  margin-bottom:22px;
+}
+
+.card{
+  background:var(--card);
+  border-radius:14px;
+  box-shadow:0 4px 16px rgba(0,0,0,0.08);
+  padding:20px;
+  margin-bottom:22px;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th, td{
+  padding:12px 10px;
+  border-bottom:1px solid #eee;
+  text-align:left;
+}
+
+th{
+  background:#2320ee;
+  color:#fff;
+  font-size:0.85rem;
+}
+
+td{
+  font-size:0.95rem;
+  cursor:pointer;
+}
+
+tr.hover-glow:hover{
+  background:var(--highlight);
+  box-shadow:var(--highlight-glow);
+}
+
+.progress{
+  height:24px;
+  background:#e5e9ff;
+  border-radius:12px;
+  overflow:hidden;
+}
+
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  transition:width 0.5s ease;
+}
+
+.progress-text{
+  text-align:center;
+  margin-top:8px;
+  font-weight:600;
+}
+
+footer{
+  text-align:center;
+  color:var(--muted);
+  font-size:0.85rem;
+}
+
+@media(max-width:600px){
+  th, td{ font-size:0.85rem; padding:8px 6px; }
+  h1{ font-size:1.5rem; }
+}
