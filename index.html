@@ -1,50 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>BIOTECH 5TH SEMESTER – Exam Countdown</title>
-<style>
-  :root{
-    --bg:#f5f8ff;
-    --card:#ffffff;
-    --accent:#2a52f2;
-    --accent2:#00c3ff;
-    --text:#222;
-    --muted:#666666;
-    --highlight:yellow;
-    --highlight-glow:0 0 12px rgba(74,108,247,0.6);
-  }
-  body{
-    margin:0; font-family: "Poppins", Arial, sans-serif;
-    background:var(--bg); color:var(--text);
-    display:flex; justify-content:center; padding:32px;
-  }
-  .container{ width:100%; max-width:900px; }
-  h1{ font-size:1.8rem; margin-bottom:8px; text-align:center; }
-  p.subtitle{ text-align:center; color:var(--muted); margin-bottom:22px; }
-  .card{ 
-    background:var(--card); border-radius:14px; border-color: #00c3ff;
-    box-shadow:0 4px 16px rgba(0,0,0,0.08);
-    padding:20px; margin-bottom:22px;
-    transition: transform 0.2s;
-  }
-  table{ width:100%; border-collapse:collapse; }
-  th, td{ padding:12px 10px; border-bottom:1px solid #eee; text-align:left; }
-  th{ color:var(--muted); font-size:0.85rem; }
-  td{ font-size:0.95rem; cursor:pointer; }
-  tr.hover-glow:hover{
-    background:var(--highlight);
-    box-shadow: var(--highlight-glow);
-  }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BIOTECH 5TH SEMESTER – Exam Countdown</title>
 
-  .progress{ height:24px; background:#e5e9ff; border-radius:12px; overflow:hidden; margin-top:10px; }
-  .progress-fill{ height:100%; background:linear-gradient(90deg,var(--accent),var(--accent2)); width:0%; transition:width 0.5s ease; }
-  .progress-text{ text-align:center; margin-top:8px; font-weight:600; }
-  footer{ text-align:center; color:var(--muted); font-size:0.85rem; margin-top:16px; }
-  @media(max-width:600px){ th, td{ padding:8px 6px; font-size:0.85rem; } h1{ font-size:1.5rem; } }
-</style>
+  <!-- LINK CSS FILE -->
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 <div class="container">
   <h1>🔥 BIOTECH 5TH SEMESTER - EXAM TIMETABLE 🔥</h1>
@@ -53,33 +17,35 @@
   <!-- PROGRESS -->
   <div class="card">
     <h3>📈 Semester Progress</h3>
-    <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
     <div class="progress-text" id="progressText">0% Completed</div>
   </div>
-  
+
   <!-- MAIN EXAM TABLE -->
   <div class="card">
     <table id="examTable">
       <thead>
         <tr>
-          <th style="color:#ffffff;background-color:#2320ee;">SUBJECT</th>
-          <th style="color:#ffffff;background-color:#2320ee;">EXAM DATE</th>
-          <th style="color:#ffffff;background-color:#2320ee;">DAYS LEFT</th>
+          <th>SUBJECT</th>
+          <th>EXAM DATE</th>
+          <th>DAYS LEFT</th>
         </tr>
       </thead>
       <tbody></tbody>
     </table>
   </div>
 
-  <!-- NEW GAP TABLE -->
+  <!-- GAP TABLE -->
   <div class="card">
     <h3>📅 Days Between Each Exam</h3>
     <table id="gapTable">
       <thead>
         <tr>
-          <th style="color:#ffffff;background-color:#2320ee;">FROM</th>
-          <th style="color:#ffffff;background-color:#2320ee;">TO</th>
-          <th style="color:#ffffff;background-color:#2320ee;">GAP (DAYS)</th>
+          <th>FROM</th>
+          <th>TO</th>
+          <th>GAP (DAYS)</th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -89,77 +55,7 @@
   <footer>Powered by Team PowerHouse 🔥</footer>
 </div>
 
-<script>
-const exams = [
-  { subject: "Molecular Biology and Genetic Engineering Laboratory", date: "2025-12-05" },
-  { subject: "Immunology Laboratory", date: "2025-12-03" },
-  { subject: "Immunology", date: "2025-12-11" },
-  { subject: "Genetic Engineering", date: "2025-12-13" },
-  { subject: "Food Processing & Technology", date: "2025-12-16" },
-  { subject: "Tissue Engineering", date: "2025-12-18" },
-  { subject: "Bioprocess Principles", date: "2025-12-20" },
-  { subject: "Mass Transfer Operations", date: "2025-12-23" }
-];
-
-const tbody = document.querySelector("#examTable tbody");
-const gapBody = document.querySelector("#gapTable tbody");
-const progressFill = document.getElementById("progressFill");
-const progressText = document.getElementById("progressText");
-
-function startOfDay(d){ return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
-function daysBetween(a,b){ return Math.floor((b - a)/(24*60*60*1000)); }
-function formatDate(d){ return d.toLocaleDateString(undefined,{day:'2-digit',month:'2-digit',year:'numeric',weekday:'short'}); }
-
-function render(){
-  const now = new Date();
-  const today = startOfDay(now);
-  tbody.innerHTML = "";
-  gapBody.innerHTML = "";
-  let completedCount = 0;
-
-  // Main exam rows
-  exams.forEach((ex, index) => {
-    const examDate = startOfDay(new Date(ex.date));
-    const diff = daysBetween(today, examDate);
-    const tr = document.createElement("tr");
-    tr.classList.add("hover-glow");
-
-    let daysLeftText;
-    if(diff < 0){ daysLeftText = "<span style='color:gray'>Completed ✅</span>"; completedCount++; }
-    else if(diff === 0){ daysLeftText = "<span style='color:#ff4d00;font-weight:600;'>Today ⏳</span>"; }
-    else if(diff === 1){ daysLeftText = "<span>1 Day</span>"; }
-    else{ daysLeftText = `<span>${diff} Days</span>`; }
-
-    tr.innerHTML = `
-      <td>${ex.subject}</td>
-      <td>${formatDate(examDate)}</td>
-      <td>${daysLeftText}</td>
-    `;
-    tbody.appendChild(tr);
-  });
-
-  // Gap between exams (excluding exam days)
-  for(let i=0; i<exams.length-1; i++){
-    const currentDate = startOfDay(new Date(exams[i].date));
-    const nextDate = startOfDay(new Date(exams[i+1].date));
-    const gap = daysBetween(currentDate, nextDate) - 1; // exclude exam days
-
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${exams[i].subject}</td>
-      <td>${exams[i+1].subject}</td>
-      <td>${gap > 0 ? gap + " Days" : "No Gap"}</td>
-    `;
-    gapBody.appendChild(tr);
-  }
-
-  // Progress bar update
-  const percent = Math.round((completedCount / exams.length) * 100);
-  progressFill.style.width = percent + "%";
-  progressText.textContent = `${percent}% Completed (${completedCount}/${exams.length})`;
-}
-
-render();
-</script>
+<!-- LINK JS FILE -->
+<script src="script.js"></script>
 </body>
 </html>
